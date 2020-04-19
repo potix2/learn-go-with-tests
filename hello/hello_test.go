@@ -9,9 +9,14 @@ func TestHello(t *testing.T) {
 		arg  string
 	}{
 		{
-			name: "TestHello",
+			name: "SpecificName",
 			want: "Hello, Chris",
 			arg:  "Chris",
+		},
+		{
+			name: "DefaultBehavior",
+			want: "Hello, World",
+			arg:  "",
 		},
 	}
 	for _, tt := range tests {

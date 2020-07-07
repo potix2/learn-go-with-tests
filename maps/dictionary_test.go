@@ -7,12 +7,12 @@ import (
 func TestSearch(t *testing.T) {
 	type args struct {
 		dictionary Dictionary
-		word string
+		word       string
 	}
 	tests := []struct {
-		name string
-		args args
-		want string
+		name    string
+		args    args
+		want    string
 		wantErr error
 	}{
 		{
@@ -38,11 +38,10 @@ func TestSearch(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := tt.args.dictionary.Search(tt.args.word)
 			if tt.wantErr != nil {
-				if err != tt.wantErr {
-					t.Fatalf("expected to get an error. but got %q", err)
-				}
+				assertError(t, err, tt.wantErr)
+			} else {
+				assertStrings(t, got, tt.want)
 			}
-			assertStrings(t, got, tt.want)
 		})
 	}
 }
@@ -51,5 +50,12 @@ func assertStrings(t *testing.T, got, want string) {
 	t.Helper()
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
+	}
+}
+
+func assertError(t *testing.T, got, want error) {
+	t.Helper()
+	if got != want {
+		t.Errorf("got error %q want %q", got, want)
 	}
 }
